@@ -13,8 +13,8 @@ class simpleapp_tk(Tkinter.Tk):
 	def initialize(self):
 		self.grid()
 		
-		self.ON = Tkinter.IntVar()
-		self.ON.set(0)
+		self.timeOut = Tkinter.StringVar()
+		self.timeOut.set("Time's up!")
 		
 		self.timeValue = Tkinter.IntVar()
 		self.entry = Tkinter.Entry(self,textvariable=self.timeValue)
@@ -81,18 +81,18 @@ class simpleapp_tk(Tkinter.Tk):
 		self.button_BWagM.grid(column=5,row=2,sticky='WENS')
 		
 		self.redScore = Tkinter.IntVar()
-		label = Tkinter.Label(self,textvariable=self.redScore,fg="white",bg="red",font=("DwarfFortressVan", 25))
-		label.grid(column=0,row=2,columnspan=3,sticky='EW')
+		self.labelRed = Tkinter.Label(self,textvariable=self.redScore,fg="white",bg="red",font=("DwarfFortressVan", 25))
+		self.labelRed.grid(column=0,row=2,columnspan=3,sticky='EW')
 		self.redScore.set(0)
 		
 		self.blueScore = Tkinter.IntVar()
-		label = Tkinter.Label(self,textvariable=self.blueScore,fg="white",bg="blue",font=("DwarfFortressVan", 25))
-		label.grid(column=6,row=2,columnspan=3,sticky='EW')
+		self.labelBlue = Tkinter.Label(self,textvariable=self.blueScore,fg="white",bg="blue",font=("DwarfFortressVan", 25))
+		self.labelBlue.grid(column=6,row=2,columnspan=3,sticky='EW')
 		self.blueScore.set(0)
 		
 		self.timeCountdown = Tkinter.IntVar()
-		label = Tkinter.Label(self,textvariable=self.timeCountdown,font=("DwarfFortressVan", 25))
-		label.grid(column=4,row=2,sticky='EW')
+		self.labelTime = Tkinter.Label(self,textvariable=self.timeCountdown,font=("DwarfFortressVan", 25))
+		self.labelTime.grid(column=4,row=2,sticky='EW')
 		self.timeCountdown.set(self.timeValue.get())
 		
 		self.timerStart = Tkinter.BooleanVar()
@@ -165,9 +165,10 @@ class simpleapp_tk(Tkinter.Tk):
 			self.button_ST.config(text="Start Clock")
 			self.timerStart.set(False)
 			self.timeCountdown.set(self.timeValue.get())
+			self.labelTime.config(textvariable=self.timeCountdown)
 		else:
 			self.button_ST.config(relief="sunken")
-			self.button_ST.config(text="Stop Clock")
+			self.button_ST.config(text="Reset Clock")
 			self.timeCountdown.set(self.timeValue.get())
 			self.timerStart.set(True)
 			self.countdown()
@@ -178,10 +179,8 @@ class simpleapp_tk(Tkinter.Tk):
 				self.timeCountdown.set(self.timeCountdown.get()-1)
 				self.after(1000,self.countdown)
 			else:
-				self.timeCountdown.set(self.timeValue.get())
+				self.labelTime.config(textvariable=self.timeOut)
 				self.timerStart.set(False)
-				self.button_ST.config(relief="raised")
-				self.button_ST.config(text="Start Clock")
 		
 if __name__ == "__main__":
 	app = simpleapp_tk(None)
