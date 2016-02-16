@@ -184,5 +184,5 @@ class simpleapp_tk(Tkinter.Tk):
 		
 if __name__ == "__main__":
 	app = simpleapp_tk(None)
-	app.title('Anime Jeopardy Scoreboard')
+	app.title('Jeopardy Scoreboard')
 	app.mainloop()
