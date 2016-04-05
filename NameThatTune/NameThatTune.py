@@ -4,6 +4,7 @@
 import Tkinter
 import time
 import os
+import random
 
 class simpleapp_tk(Tkinter.Tk):
 	def __init__(self,parent):
@@ -38,6 +39,15 @@ class simpleapp_tk(Tkinter.Tk):
 		
 		self.songRemaining = Tkinter.IntVar()
 		self.songRemaining.set(self.songNumber)
+		
+		self.songRandom = random.sample(range(self.songNumber), self.songNumber)
+		os.system("> $HOME/.NTT/RandomList.txt")
+		self.newSongList = range(self.songNumber)
+		for item in range(self.songNumber):
+			self.newSongList[item] = self.songArray[self.songRandom[item]]
+		self.randomList = open('/home/keaton/.NTT/RandomList.txt','rw+')
+		self.randomList.writelines( "%s\n" % item for item in self.newSongList )
+		self.randomList.close()
 		
 		self.countUp = Tkinter.IntVar()
 		self.countUp.set(0)
@@ -110,7 +120,7 @@ class simpleapp_tk(Tkinter.Tk):
 			self.labelTime.config(textvariable=self.timeCountdown)
 			if self.songRemaining.get() == 0:
 				self.labelSongsLeft.config(textvariable=self.noMore)
-			self.lastPlayed.set(self.songArray[self.countUp.get()-1])
+			self.lastPlayed.set(self.newSongList[self.countUp.get()-1])
 			self.plzwork = "Songs left: %r" % self.songRemaining.get()
 			self.songsLeft.set(self.plzwork)
 		else:
@@ -123,7 +133,7 @@ class simpleapp_tk(Tkinter.Tk):
 	
 	def playsnip(self):
 		self.countUp.set(self.countUp.get()+1)
-		self.play = "cvlc --play-and-exit %s/.NTT/%r.mp3" % (self.HOME, self.countUp.get())
+		self.play = "cvlc --play-and-exit %s/.NTT/%r.mp3" % (self.HOME, self.songRandom[self.countUp.get()-1]+1)
 		os.system(self.play)
 		self.songRemaining.set(self.songRemaining.get()-1)	
 		
