@@ -4,7 +4,7 @@
 # Default is ['~/.steam/steam/steamapps/']
 # Add another steamapps folder by adding a comma just before the ] and pasting the directory with quotes around it
 # ex. ['~/.steam/steam/steamapps/','/media/MyExternalHardDrive/Steam/steamapps/']
-STEAMAPPS = ['~/.steam/steam/steamapps/','/media/Windows/Linux stolen space/Glorious Steam Games/steamapps/']
+STEAMAPPS = ['~/.steam/steam/steamapps/']
 
 ### Menu building begins
 
