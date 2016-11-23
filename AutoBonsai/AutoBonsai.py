@@ -73,7 +73,7 @@ from PlantUtils import *
 
 Schedule = []
 try:
-	Schedule = loadArray(MYDIR+"/MyFiles/Schedule.list")
+	Schedule = loadArray(MYDIR+"/Schedule.list")
 except:
 	print "Schedule not found."
 
