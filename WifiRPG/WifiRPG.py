@@ -28,7 +28,7 @@ import sys
 helpDialog = """
       WifiRPG - Wi-Fi Random Passcode Generator
    Intended for use on a Raspberry Pi hooked up to
-   a monitor/magic mirror in your home. Use it to
+   a monitor/display system in your home. Use it to
    generate secure, random passphrases for your home
    Wi-Fi network, then display the password on the
    screen. For automatic passphrase updating, set
@@ -63,10 +63,28 @@ Arguments:
 
 def entropy(password):
 	L = len(password)
-	N = 26 * 2 + 1    # Since we're using capital and lowercase letters plus the hyphen
 	from math import log
-	H = L*log(N,2)    # From https://en.wikipedia.org/wiki/Password_strength#Random_passwords
+	#########################################################################
+	# From https://en.wikipedia.org/wiki/Password_strength#Random_passwords #
+	H = log((26+10) + (26*2+10+1)**4 + (26*2+1)**(L-6) + 26,2)
+	#       0-9,A-Z   0-9,A-Z,a-z,-    A-Z,a-z,-        a-z                 #
+	# The first character is known to be in either 0-9 or A-Z               #
+	# Characters 2-5 could pull from 0-9, A-Z, a-z, or -                    #
+	# The last character is known to be in a-z                              #
+	# The remaining middle characters could be from A-Z, a-z, or -          #
+	#########################################################################
 	return H
+
+
+def maybeNumber():
+	from random import random
+	TorF = random()
+	if TorF < 0.5:
+		return True
+	elif TorF > 0.5:
+		return False
+	else:
+		return maybeNumber()
 	
 
 def resetPass(customCommand,test=False):
@@ -94,12 +112,12 @@ def resetPass(customCommand,test=False):
 		  "Total adverbs: "+str(len(av))+"\n"+
 		  "Total adjectives: "+str(len(aj))+"\n"+
 		  "Total nouns: "+str(len(nn))+"\n"+
-		  "Total possible combinations: "+combosFormatted+"\n"+
+		  "Total possible combinations: "+combosFormatted+" (not factoring in numbers)\n"+
 		  "Shortest possible passphrase length: "+str(min(avLengths)+min(ajLengths)+min(nnLengths))+"\n"+
-		  "Longest possible passphrase length: "+str(max(avLengths)+max(ajLengths)+max(nnLengths))+"\n"+
-		  "Mean passphrase length: "+str(int(mean(avLengths)+mean(ajLengths)+mean(nnLengths)))+"\n"+
-		  "Median passphrase length: "+str(int(median(avLengths)+median(ajLengths)+median(nnLengths)))+"\n"+
-		  "Mode passphrase length: "+str(int(mode(avLengths)+mode(ajLengths)+mode(nnLengths)))+"\n"+
+		  "Longest possible passphrase length: "+str(max(avLengths)+max(ajLengths)+max(nnLengths)+5)+"\n"+
+		  "Mean passphrase length: "+str(int(mean(avLengths)+mean(ajLengths)+mean(nnLengths)+4))+"\n"+
+		  "Median passphrase length: "+str(int(median(avLengths)+median(ajLengths)+median(nnLengths))+4)+"\n"+
+		  "Mode passphrase length: "+str(int(mode(avLengths)+mode(ajLengths)+mode(nnLengths))+4)+"\n"+
 		  "-"*25)
 	# Randomize the order of the arrays
 	av = randomize(av,len(av))
@@ -109,8 +127,14 @@ def resetPass(customCommand,test=False):
 	newAdverb = av[int(random()*len(av))].capitalize()
 	newAdjective = aj[int(random()*len(aj))].capitalize()
 	newNoun = nn[int(random()*len(nn))].capitalize()
+	# Possibly add a random number from 1 to 10,000
+	if maybeNumber():
+		from math import ceil
+		number = str(ceil(random()*10000))
+	else:
+		number = ''
 	# Assemble the passphrase
-	newPassphrase = newAdverb+newAdjective+newNoun
+	newPassphrase = number+newAdverb+newAdjective+newNoun
 	#################################################################### Needs attention
 	print("The new passphrase will be: "+newPassphrase)
 	print("Total entropy: ~"+str(int(entropy(newPassphrase))))
