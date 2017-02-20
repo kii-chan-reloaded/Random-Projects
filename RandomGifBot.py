@@ -41,16 +41,16 @@ except:
 # this information, then save it to a separate file, but for teaching
 # purposes we'll put the information right in the file itself.
 
-botRedditUser = "roboruri" # Type your bot reddit username in between the quotes. (leave out /u/)
+botRedditUser = "" # Type your bot reddit username in between the quotes. (leave out /u/)
 # This is a "string" variable. Basically, it's text.
-botRedditPassword = "1Ke28Br94" # Same deal
+botRedditPassword = "" # Same deal
 
-botClientID = "XAx0NuCcv_rMAg" # See below if you don't know what these two are
-botSecret = "1p9osxn_mTTiwstUAnTpzaLWaTw"
+botClientID = "" # See below if you don't know what these two are
+botSecret = ""
 
-myUsername = "Omnipotence_is_bliss"
-mySubreddit = "roboruri" # do not put /r/
-keyword = "GifMe" # You mentioned a keyword in your post for the bot to respond to. Type that here.
+myUsername = ""
+mySubreddit = "" # do not put /r/
+keyword = "" # You mentioned a keyword in your post for the bot to respond to. Type that here.
 
 sleepTime = 60*5 # This is the number of seconds the bot will wait before
                  # refreshing. Since it's a number, we can do math!
