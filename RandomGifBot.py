@@ -31,8 +31,6 @@ try:
     import praw
     mod = "time"
     import time
-    mod = "os"
-    import os
 except:
     exit("Module "+mod+" is required to run this bot. Please install it with pip and run this script again")
 
@@ -148,24 +146,13 @@ while True: # Our good ol' friend
             # if you pull the comment from the submission as opposed to
             # just looking at the comment straight. So, we have to do a
             # little dance in order to get what we want.
-            thisID = comment.id
-            submission = comment.submission
-            for subComment in submission.comments:
-                if subComment.id == thisID:
-                    replies = subComment.replies.list()
-                    break
-            # What that did was go through each comment in the
-            # submission that the comment we picked up on was posted in,
-            # and when we got to the comment we picked up on earlier, we
-            # grabbed all the replies to it and "broke" out of the for loop.
             
-            # So what we're going to do with it now is a little advanced
-            # bit of scripting. Basically what's going on in this next line
-            # is we're going to look through all the replies to the comment
-            # and make a list of the (lower case) usernames of the people
-            # who replied to it. If the bot had already replied to this
-            # comment, it would see it's name in this list and skip it.
-            if botRedditUser.lower() in [ reply.author.name.lower() for reply in replies ]:
+            # What this does is get the ID of the comment we were called
+            # for, then compares it to the recent comments the bot has
+            # made. If it matches, then the bot will skip it.
+            thisID = comment.id
+            repliedComments = [ myComment.parent().id for myComment in reddit.redditor(botRedditUser).comments.new() ]
+            if thisID in repliedComments:
                 print("I already gif'd them.")
                 continue
             
