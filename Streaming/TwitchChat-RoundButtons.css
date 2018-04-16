@@ -1,0 +1,51 @@
+.scroll .tse-scroll-content,.scroll .hgc-horizontal-scroll {
+ /*Make all scrollbars the background color*/
+ background: #123123;
+}
+body,html {
+ background: #123123;
+}
+.ember-chat .chat-messages .chat-line {
+ font-size:12px;
+ line-height:20px;
+ padding:6px 20px;
+ margin: 3px;
+ /* Light theme:
+  *   border: #bababa;
+  *   background: #e3e3e3;
+  * 
+  * Dark theme:
+  *   border: 585858;
+  *   background: #3e3e3e;
+  */
+ border: #bababa;
+ background: #e3e3e3;
+ border-style: outset;
+ border-width: 5px;
+ border-radius: 20px;
+}
+@media (max-height: 505px), (max-height: 700px) and (min-width: 666px)
+{
+	html .ember-chat .chat-messages .chat-lines
+	{
+		background: #123123;
+	}
+}
+html body.ember-application div#ember604.ember-view div div.pos-fixed.top-0.right-0.bottom-0.left-0.ember-chat-container div#ember778.qa-chat.ember-chat.roomMode.ember-view div#ember783.ember-view div.chat-room div#ember833.ember-view div.scroll.chat-messages.js-chat-messages.hideTimestamps.hideModIcons.showAutoModActions div.tse-scrollbar div.drag-handle{
+	/* Hide the chatlog scrollbar */
+    visibility: hidden;
+}
+* {
+	/* Change all text to a color
+     * Light theme:
+     *   color: #3e3e3e!important;
+     * Dark Theme:
+     *   color: #e3e3e3!important;
+     *  */
+	color: #3e3e3e!important;
+}
+.badges {
+	/* Hide badges */
+	position:absolute!important;
+	visibility:hidden;
+}
