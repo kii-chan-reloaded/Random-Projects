@@ -1,8 +1,15 @@
-.scroll .tse-scroll-content,.scroll .hgc-horizontal-scroll {
+.room-selector__header, .chat-input{
+  visibility: hidden;
+  position: absolute;
+}
+
+div[class*="scrollbar"] {
     /*Make all scrollbars the background color*/
+    visibility:hidden;
+    position:absolute;
     background: #123123;
 }
-body,html {
+body, .chat-list {
     background: #123123;
 }
 
@@ -11,7 +18,7 @@ body,html {
     to {left:0%}
 }
 
-.ember-chat .chat-messages .chat-line {
+.chat-line__message {
     font-size:12px;
     line-height:20px;
     padding:6px 20px;
@@ -34,17 +41,6 @@ body,html {
     animation-duration:1s;
     animation-timing-function:ease-out;
 }
-@media (max-height: 505px), (max-height: 700px) and (min-width: 666px)
-{
-    html .ember-chat .chat-messages .chat-lines
-    {
-        background: #123123;
-    }
-}
-.drag-handle {
-    /* Hide the chatlog scrollbar */
-    visibility: hidden;
-}
 * {
     /* Change all text to a color
      * Light theme:
@@ -54,13 +50,13 @@ body,html {
      *  */
     color: #3e3e3e!important;
 }
-.badges {
+.chat-badge {
     /* Hide badges */
     position:absolute!important;
     visibility:hidden;
 }
 
-li[class*="admin"] {
+.chat-line__status {
     /* Hide admin messages ("welcome to the chat room", etc) */
     visibility: hidden;
     position: absolute!important;
