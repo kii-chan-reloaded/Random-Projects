@@ -1,24 +1,32 @@
 .room-selector__header, .chat-input{
-  visibility: hidden;
-  position: absolute;
+    /*Remove header and chat input*/
+    visibility: hidden;
+    position: absolute;
 }
 
 div[class*="scrollbar"] {
-    /*Make all scrollbars the background color*/
+    /*Remove all scrollbars*/
     visibility:hidden;
     position:absolute;
-    background: #123123;
 }
-body, .chat-list {
+.chat-list {
+    /*Change chat background*/
     background: #123123;
 }
 
+.tw-border-l {
+    /*Change border to background color*/
+	border-left: 1px solid #123123 !important;
+}
+
 @keyframes slidein {
+    /*Define animation*/
     from {left:100%}
     to {left:0%}
 }
 
 .chat-line__message {
+    /*Create new style for chat lines*/
     font-size:12px;
     line-height:20px;
     padding:6px 20px;
