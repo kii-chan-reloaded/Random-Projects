@@ -16,7 +16,7 @@ div[class*="scrollbar"] {
 
 .tw-border-l {
     /*Change border to background color*/
-	border-left: 1px solid #123123 !important;
+    border-left: 1px solid #123123 !important;
 }
 
 @keyframes slidein {
